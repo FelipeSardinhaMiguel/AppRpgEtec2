@@ -13,5 +13,15 @@
 
         <Button Text="Entrar" Command="{Binding AutenticarCommand}" HorizontalOptions="Fill" 
             Margin="0,10,0,0"/>
+
+        <HorizontalStackLayout  
+            HorizontalOptions="Center" Spacing="20" Margin="30">
+            <Label Text="Não possui login?"></Label>
+            <Label Text="Cadastre-se" FontAttributes="Bold"></Label>
+            <HorizontalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding DirecionarCadastroCommand}">
+                </TapGestureRecognizer>
+            </HorizontalStackLayout.GestureRecognizers>
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

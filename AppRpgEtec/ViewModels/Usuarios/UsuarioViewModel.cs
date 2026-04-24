@@ -1,5 +1,6 @@
 ﻿using AppRpgEtec.Models;
 using AppRpgEtec.Services.Usuarios;
+using AppRpgEtec.Views.Personagens;
 using AppRpgEtec.Views.Usuarios;
 using System;
 using System.Collections.Generic;
@@ -62,21 +63,21 @@ namespace AppRpgEtec.ViewModels.Usuarios
                 u.Username = Login;
                 u.Password = Password; //<-- Password (propriedade da model de usuario) vai para Password (atributo que é chamado na view)
 
-                Usuario uAutenticacao = await uService.PostAutenticarUsuarioAsync(u);
+                Usuario uAutenticado = await uService.PostAutenticarUsuarioAsync(u);
 
-                if (!string.IsNullOrEmpty(uAutenticacao.Token))
+                if (!string.IsNullOrEmpty(uAutenticado.Token))
                 {
-                    string mensagem = $"Bem-vindo(a) {uAutenticacao.Username}.";
+                    string mensagem = $"Bem-vindo(a) {uAutenticado.Username}.";
 
-                    Preferences.Set("UsuarioId", uAutenticacao.Id);
-                    Preferences.Set("UsuarioUsername", uAutenticacao.Username);
-                    Preferences.Set("UsuarioPerfil", uAutenticacao.Perfil);
-                    Preferences.Set("UsuarioId", uAutenticacao.Token);
+                    Preferences.Set("UsuarioId", uAutenticado.Id);
+                    Preferences.Set("UsuarioUsername", uAutenticado.Username);
+                    Preferences.Set("UsuarioPerfil", uAutenticado.Perfil);
+                    Preferences.Set("UsuarioId", uAutenticado.Token);
 
                     await Application.Current.MainPage
                         .DisplayAlert("Informação", mensagem, "Ok");
 
-                    Application.Current.MainPage = new MainPage();
+                    Application.Current.MainPage = new ListagemView();
                 }
                 else
                 {
